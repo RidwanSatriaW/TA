@@ -76,7 +76,7 @@
                 <td>{{$data->visitor_out_time}}</td>
                 <td class="highlight-first-scan">{{$data->first_emotion}}</td>
                 <td class="highlight-feedback">{{$data->feedback}}</td>
-                <td>{{ $data->availables->employees->employee_name }} ( {{ $data->availables->employees->departments->department_name }} )</td>
+                <td>{{ $data->availables->employees->employee_name }} ({{ $data->availables->employees->departments->department_name }})</td>
                 <td>{{ $data->availables->necessities->keperluan_name }}</td>
                 <td>{{$data->users->name}}</td>
             </tr>

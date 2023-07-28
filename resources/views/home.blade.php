@@ -141,8 +141,8 @@
           {
             label: 'Sad \u{1F622}',
             data: labels.map(date => data[date]['sad']),
-            backgroundColor: 'rgba(75, 192, 192, 0.6)', // Warna untuk kategori "sad"
-            borderColor: 'rgba(75, 192, 192, 1)',
+            backgroundColor: 'rgba(0, 128, 0, 0.6)', // Warna hijau untuk kategori "Sad"
+            borderColor: 'rgba(0, 128, 0, 1)',
             borderWidth: 1
           },
           {
