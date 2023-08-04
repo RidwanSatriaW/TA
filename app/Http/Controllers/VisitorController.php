@@ -114,7 +114,7 @@ class VisitorController extends Controller
             ]);
             $data = $request->all();
             // dd($data);
-            $employee_availables = EmployeeAvailable::findOrFail($data['person'])->pluck('id');
+            $employee_availables = EmployeeAvailable::where('id', $data['person'])->pluck('id');
                             // where('employee_id', '=', $data['person'])
                             // ->where('keperluan_id', '=', $data['necessity'])
                             // // ->first()
