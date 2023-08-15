@@ -83,5 +83,6 @@
             @endforeach
         </tbody>
     </table>
+    <h3>The level of visitor satisfaction is <b>{{ $value }}</b></h3>
 </body>
 </html>

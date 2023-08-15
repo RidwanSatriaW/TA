@@ -135,6 +135,7 @@ class VisitorController extends Controller
                 'visitor_out_time' => '-',
                 'feedback' => '-',
                 'user_id' => $user_id,
+                'value' => '-',
             ]);
             $output = [
                 'success' => true,
@@ -172,10 +173,22 @@ class VisitorController extends Controller
             ]);
             $data = $request->all();
             $out_time = Carbon::now();
+
+            if ($data['feedback'] == 'happy') {
+                $value = 4;
+            }elseif ($data['feedback'] == 'netral') {
+                $value = 3;
+            }elseif ($data['feedback'] == 'sad') {
+                $value = 2;
+            }else{
+                $value = 1;
+            }
+
             $form_data = array(
                 'feedback'       =>  $data['feedback'],
                 'visitor_out_time' => $out_time,
                 'visitor_status' => 'Complete',
+                'value' => $value,
             );
 
             Visitor::whereId($data['visitor_id'])->update($form_data);

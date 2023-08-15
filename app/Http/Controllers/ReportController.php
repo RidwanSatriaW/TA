@@ -62,9 +62,24 @@ class ReportController extends Controller
         } else {
             $visitor = $visitor->get();
         }
-       
- 
-    	$pdf = PDF::loadview('report.pdf',['datas'=>$visitor]);
+        $visitorData = $visitor->pluck('value')->toArray(); // Mengambil nilai dari kolom 'value' dan mengonversi ke array
+
+        $averageValue = count($visitorData) > 0 ? array_sum($visitorData) / count($visitorData) : 0;
+        $roundedAverageValue = round($averageValue);
+        $roundedAverageValue = intval($roundedAverageValue);
+        if ($roundedAverageValue == 0) {
+            $value = 'Very Unsatisfying';
+        }elseif ($roundedAverageValue == 1) {
+            $value = 'Unsatisfying';
+        }elseif ($roundedAverageValue == 2) {
+            $value = 'Neutral';
+        }elseif ($roundedAverageValue == 3) {
+            $value = 'Satisfying';
+        }else {
+            $value = 'Very Satisfying';
+        }
+
+        $pdf = PDF::loadview('report.pdf',['datas'=>$visitor, 'value'=>$value]);
     	return $pdf->download('laporan_visitor_'.date('Y-m-d_H-i-s').'.pdf');
     }
 }

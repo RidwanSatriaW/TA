@@ -6,9 +6,8 @@ use DataTables;
 use App\Models\Employee;
 use App\Models\Department;
 use Illuminate\Http\Request;
+use App\Models\EmployeeAvailable;
 use Illuminate\Support\Facades\Auth;
-
-
 
 class DepartmentController extends Controller
 {
@@ -30,8 +29,6 @@ class DepartmentController extends Controller
             return DataTables::of($data)
                 ->addIndexColumn()
                 ->addColumn('action', function($row){
-                    // return '<a href="/department/edit/'.$row->id.'" class="btn btn-primary btn-sm">Edit</a>&nbsp;<button type="button" class="btn btn-danger btn-sm delete" data-id="'.$row->id.'">Delete</button>';
-
 
                     if($row->status == 1)
                     {
@@ -94,8 +91,6 @@ class DepartmentController extends Controller
 
     function activate($id)
     {
-        
-        // $data = Department::findOrFail($id);
         $status = 1;
 
         $form_data = array(
@@ -103,22 +98,20 @@ class DepartmentController extends Controller
         );
 
         Department::whereId($id)->update($form_data);
-        // Employee::where('department_id', $id)->update($form_data);
-
         return redirect('department')->with('success', 'Department Data Updated');
         
     }
     function deactivate($id)
     {
         $status = 0;
-    
-
         $form_data = array(
             'status'       =>  $status,
         );
-
         Department::whereId($id)->update($form_data);
         Employee::where('department_id', $id)->update($form_data);
+        EmployeeAvailable::whereHas('employees', function ($query) use ($id) {
+            $query->where('department_id', $id);
+        })->update($form_data);
 
         return redirect('department')->with('success', 'Department Data Updated');
         

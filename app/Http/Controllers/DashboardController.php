@@ -27,9 +27,9 @@ class DashboardController extends Controller
 
             // for yesterday
             $yesterday = Carbon::yesterday();
-            if ($yesterday->isWeekend()) {
-                $yesterday = $yesterday->previous(Carbon::FRIDAY);
-            }
+            // if ($yesterday->isWeekend()) {
+            //     $yesterday = $yesterday->previous(Carbon::FRIDAY);
+            // }
             $count_yesterday = Visitor::whereDate('created_at', $yesterday)->count();
             // dd(['count_today' => $count_today, 'count_week' => $count_week, 'count_yesterday' => $count_yesterday]);
             

@@ -21,6 +21,7 @@ class Visitor extends Model
         'employee_availables_id',      
         'user_id',
         'data_visitors_id',
+        'value',
     ];
 
     public function availables()
