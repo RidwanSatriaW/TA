@@ -83,6 +83,12 @@
             @endforeach
         </tbody>
     </table>
-    <h3>The level of visitor satisfaction is <b>{{ $value }}</b></h3>
+    <h3>The level of visitor satisfaction is <b>{{ $value }} ({{ $percentage }}%)</b></h3>
+    {{-- <h3>Percentage</h3> --}}
+    <h4>0%-20% = Very Unsatisfying</h4>
+    <h4>20%-40% = Unsatisfying</h4>
+    <h4>40%-60% = Neutral</h4>
+    <h4>60%-80% = Satisfying</h4>
+    <h4>80%-100% = Very Satisfying</h4>
 </body>
 </html>

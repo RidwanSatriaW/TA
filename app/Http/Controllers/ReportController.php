@@ -64,7 +64,12 @@ class ReportController extends Controller
         }
         $visitorData = $visitor->pluck('value')->toArray(); // Mengambil nilai dari kolom 'value' dan mengonversi ke array
 
-        $averageValue = count($visitorData) > 0 ? array_sum($visitorData) / count($visitorData) : 0;
+        // $averageValue = count($visitorData) > 0 ? array_sum($visitorData) / count($visitorData) : 0;
+        $totalVisitorData = count($visitorData);
+        $averageValue = $totalVisitorData > 0 ? array_sum($visitorData) / $totalVisitorData : 0;
+
+        $percentage = ($averageValue / 5) * 100; // Assuming the scale is from 1 to 5
+
         $roundedAverageValue = round($averageValue);
         $roundedAverageValue = intval($roundedAverageValue);
         if ($roundedAverageValue == 0) {
@@ -79,7 +84,7 @@ class ReportController extends Controller
             $value = 'Very Satisfying';
         }
 
-        $pdf = PDF::loadview('report.pdf',['datas'=>$visitor, 'value'=>$value]);
+        $pdf = PDF::loadview('report.pdf',['datas'=>$visitor, 'value'=>$value, 'percentage'=>$percentage]);
     	return $pdf->download('laporan_visitor_'.date('Y-m-d_H-i-s').'.pdf');
     }
 }
